@@ -2,6 +2,10 @@ Images = new Mongo.Collection('images');
 
 if (Meteor.isClient) {  
   
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_AND_EMAIL"
+  });
+  
     Template.body.helpers({
       username: function () {
         if (Meteor.user()) {        
