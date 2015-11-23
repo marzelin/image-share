@@ -1,5 +1,9 @@
 /* CSS declarations go here */
 
+body {
+  padding-top: 60px;
+}
+
 #add-img-form-modal .modal-header {
   border: none;
 }
