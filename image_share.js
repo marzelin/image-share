@@ -39,12 +39,15 @@ if (Meteor.isClient) {
   
   Template.addImgTempl.events({
     'submit #add-img-form': function (event) {
-      Images.insert({
-        'imgSrc': event.target.imgSrc.value,
-        'imgAlt': event.target.imgAlt.value,
-        'dateAdded' : new Date()
-      });
-      return false;
+      if (Meteor.user()) {
+        Images.insert({
+          'imgSrc': event.target.imgSrc.value,
+          'imgAlt': event.target.imgAlt.value,
+          'dateAdded' : new Date(),
+          'createdBy' : Meteor.user()._id
+        });
+        return false;
+      }  
     }
   });
 }
