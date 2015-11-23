@@ -20,6 +20,15 @@ if (Meteor.isClient) {
       } else {
       return false;
       }
+    },
+    filteredByUsername: function () {
+      if (Session.get("userFilter")) {
+        return Meteor.users.findOne({
+          '_id': Session.get("userFilter")})
+          .username;
+      } else {
+        return null;
+      }
     }
   });
     
