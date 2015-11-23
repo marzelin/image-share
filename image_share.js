@@ -18,7 +18,17 @@ if (Meteor.isClient) {
 
   Template.images.helpers({
     images: Images.find({},
-      {'sort': {'dateAdded': -1, 'rating': -1}})
+      {'sort': {'dateAdded': -1, 'rating': -1}}),
+    getUser: function (user_id) {
+      var user = Meteor.users.findOne({
+        '_id': user_id
+      });
+      if (user) {
+        return user.username;
+      } else {
+        return "anon";
+      }
+    }
   });
   
   Template.images.events({

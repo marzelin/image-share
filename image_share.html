@@ -47,7 +47,10 @@
             <p>
               {{imgAlt}}
             </p>
-
+            <p>
+              User: {{getUser createdBy}}
+            </p>
+            
             <p>
               {{> starsRating _id=_id class="jsRateImage" rating=rating mutable=true}}
             </p>
