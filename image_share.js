@@ -2,7 +2,10 @@ Images = new Mongo.Collection('images');
 
 if (Meteor.isClient) {  
 
-  Template.images.helpers({images: Images.find({},{'sort': {'dateAdded': -1, 'rating': -1}})});
+  Template.images.helpers({
+    images: Images.find({},
+      {'sort': {'dateAdded': -1, 'rating': -1}})
+  });
   
   var clicked = false;
   Template.images.events({
