@@ -21,7 +21,6 @@ if (Meteor.isClient) {
       {'sort': {'dateAdded': -1, 'rating': -1}})
   });
   
-  var clicked = false;
   Template.images.events({
     'click .js-image': function (event) {
       // just doing nothing
