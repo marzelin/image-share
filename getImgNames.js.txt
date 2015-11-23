@@ -1,0 +1,17 @@
+var fs = require('fs');
+
+fs.readdir('./public', function (err, filenames) {
+  var images = filenames.map(function (filename) {
+    return {
+      'imgSrc': filename,
+      'imgAlt': filename.slice(0, -4)
+    };
+  });
+  
+  //images = {'images': images};
+  
+  fs.writeFile('images.txt', JSON.stringify(images), function (err) {
+    if (err) throw err;
+    console.log('File saved.');
+  });
+});

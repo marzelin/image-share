@@ -1,0 +1,23 @@
+/* CSS declarations go here */
+
+#add-img-form-modal .modal-header {
+  border: none;
+}
+
+#add-img-form-modal .modal-footer {
+  border: none;
+}
+
+#add-img-form-modal .well {
+  margin: 0;
+}
+
+@media(min-width: 768px) {
+  .thumbnail {
+    height: 500px;
+  }
+  .thumbnail .img {
+    max-height: 300px;
+  }
+}
+
