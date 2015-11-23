@@ -6,19 +6,39 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_AND_EMAIL"
   });
   
-    Template.body.helpers({
-      username: function () {
-        if (Meteor.user()) {        
-          return Meteor.user().username;
-        } else {
-          return "";
-        }
+  Template.body.helpers({
+    username: function () {
+      if (Meteor.user()) {        
+        return Meteor.user().username;
+      } else {
+        return "";
       }
-    });
+    },
+    filteringImages: function () {
+      if (Session.get("userFilter")) {
+        return true;
+      } else {
+      return false;
+      }
+    }
+  });
+    
+  Template.body.events({
+    'click .js-remove-filter': function (event) {
+      event.preventDefault();
+      Session.set("userFilter", null);      
+    }
+  });
 
   Template.images.helpers({
-    images: Images.find({},
-      {'sort': {'dateAdded': -1, 'rating': -1}}),
+    images: function () {      
+        if (Session.get("userFilter")) {
+          return Images.find({'createdBy': Session.get("userFilter")}, 
+                             {'sort': {'dateAdded': -1, 'rating': -1}});
+        } else {
+          return Images.find({}, {'sort': {'dateAdded': -1, 'rating': -1}});
+        }    
+    },
     getUser: function (user_id) {
       var user = Meteor.users.findOne({
         '_id': user_id
@@ -43,6 +63,10 @@ if (Meteor.isClient) {
     'click .jsRateImage': function (event) {
       var rating = $(event.currentTarget).data('userrating');
       Images.update({'_id': this._id}, {'$set': {'rating': rating}});
+    },
+    'click .js-set-img-filter': function (event) {
+      event.preventDefault();      
+      Session.set("userFilter", this.createdBy);
     }
   });
   
