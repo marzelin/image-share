@@ -9,7 +9,7 @@ if (Meteor.isClient) {
     Template.body.helpers({
       username: function () {
         if (Meteor.user()) {        
-          return Meteor.user().emails[0].address;
+          return Meteor.user().username;
         } else {
           return "";
         }
