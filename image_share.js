@@ -1,6 +1,16 @@
 Images = new Mongo.Collection('images');
 
-if (Meteor.isClient) {  
+if (Meteor.isClient) {
+  
+  Session.set('imageLimit', 8);  
+  
+  $(window).scroll(function (event) {
+    if($(window).scrollTop() + 
+      $(window).height() > 
+      $(document).height() - 100) {
+      Session.set('imageLimit', Session.get('imageLimit') + 4);
+    }
+  });
   
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_AND_EMAIL"
@@ -43,9 +53,13 @@ if (Meteor.isClient) {
     images: function () {      
         if (Session.get("userFilter")) {
           return Images.find({'createdBy': Session.get("userFilter")}, 
-                             {'sort': {'dateAdded': -1, 'rating': -1}});
+                             {'sort': {'dateAdded': -1, 'rating': -1},
+                              'limit': Session.get('imageLimit')
+                             });
         } else {
-          return Images.find({}, {'sort': {'dateAdded': -1, 'rating': -1}});
+          return Images.find({}, {'sort': {'dateAdded': -1, 'rating': -1},
+                                  'limit': Session.get('imageLimit')
+                                  });
         }    
     },
     getUser: function (user_id) {
