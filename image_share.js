@@ -1,6 +1,16 @@
 Images = new Mongo.Collection('images');
 
 if (Meteor.isClient) {  
+  
+    Template.body.helpers({
+      username: function () {
+        if (Meteor.user()) {        
+          return Meteor.user().emails[0].address;
+        } else {
+          return "";
+        }
+      }
+    });
 
   Template.images.helpers({
     images: Images.find({},
